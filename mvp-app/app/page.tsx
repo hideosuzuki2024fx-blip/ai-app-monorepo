@@ -1,6 +1,6 @@
 'use client';
 
-import { Upload, Zap, Send, RefreshCw, FileText } from 'lucide-react';
+import { Upload, Zap, Send, RefreshCw, FileText, Lock } from 'lucide-react';
 import React, { useState, useCallback } from 'react';
 
 const TestPage = () => {
@@ -9,7 +9,6 @@ const TestPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
-  // テスト用のダミー値
   const DUMMY_VIDEO_NAME = "My_Latest_Vlog_0305.mp4";
   const DUMMY_SCORE = 8.2;
 
@@ -21,7 +20,7 @@ const TestPage = () => {
     
     setLoading(true);
     setError('');
-    setRevivedTitle(''); // 結果をリセット
+    setRevivedTitle(''); 
 
     try {
       const response = await fetch('/api/title', {
@@ -37,7 +36,7 @@ const TestPage = () => {
       if (response.ok) {
         setRevivedTitle(data.revisedTitle);
       } else {
-        setError(data.error || 'AIタイトル生成に失敗しました。');
+        setError(data.error || 'AIタイトル生成に失敗しました。APIキーまたはプロンプトを確認してください。');
       }
     } catch (e) {
       console.error('Fetch error:', e);
@@ -56,7 +55,7 @@ const TestPage = () => {
 
       <div className="max-w-4xl mx-auto space-y-8">
         
-        {/* A. アップロードUIとタイトル入力 */}
+        {/* 1. アップロードUIとタイトル入力 */}
         <div className="p-8 bg-white rounded-xl shadow-lg border-t-4 border-blue-500">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
             <Upload className="w-6 h-6 mr-2 text-blue-600" />
@@ -65,7 +64,7 @@ const TestPage = () => {
           
           <div className="flex items-center bg-green-50 p-2 rounded-lg mb-4">
               <FileText className="w-5 h-5 text-green-600 mr-2" />
-              <span className="text-sm font-medium text-green-700">{DUMMY_VIDEO_NAME} がアップロード済みです。</span>
+              <span className="text-sm font-medium text-green-700">（動画はアップロード済みとしてダミー表示）</span>
           </div>
 
           <textarea
@@ -96,7 +95,7 @@ const TestPage = () => {
           {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
         </div>
 
-        {/* B. AI分析結果と修正指示 */}
+        {/* 2. AI分析結果と修正指示 */}
         <section className="space-y-6">
           <h2 className="text-2xl font-bold text-gray-800 border-b pb-2 flex items-center">
             <Zap className="w-6 h-6 mr-2 text-yellow-500" />
