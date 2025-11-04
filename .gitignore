@@ -1,0 +1,14 @@
+# .gitignore (モノレポ・クロスプラットフォーム対応)
+/node_modules
+/dist
+/build
+/out
+.DS_Store
+.vscode/
+__pycache__/
+*.pyc
+venv/
+.env
+.pytest_cache/
+*.log
+.secrets
